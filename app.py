@@ -270,23 +270,36 @@ if st.button("Ejecutar Simulación"):
         entrada
     )[0]
 
-    cuello_estimado = clasificador.predict(
-        entrada
-    )[0]
+    estaciones = {
+        "Recepción": recepcion,
+        "Inspección": inspeccion,
+        "Ensamble": ensamble,
+        "Prueba": prueba,
+        "Calidad": calidad,
+        "Empaque": empaque,
+        "Almacén": almacen
+    }
 
-    c1, c2 = st.columns(2)
+    cuello_estimado = max(
+    estaciones,
+    key=estaciones.get
+)
 
-    with c1:
-        st.metric(
-            "⏱ Tiempo de ciclo estimado",
-            f"{tiempo_estimado:.2f} min"
-        )
+tiempo_cuello = estaciones[cuello_estimado]
 
-    with c2:
-        st.metric(
-            "🚨 Cuello de botella",
-            cuello_estimado
-        )
+c1, c2 = st.columns(2)
+
+with c1:
+    st.metric(
+        "⏱ Tiempo de ciclo estimado",
+        f"{tiempo_estimado:.2f} min"
+    )
+
+with c2:
+    st.metric(
+        "🚨 Cuello de botella",
+        f"{cuello_estimado} ({tiempo_cuello:.1f} min)"
+    )
 
 # ==================================================
 # DATASET
@@ -306,14 +319,21 @@ st.dataframe(
 st.subheader("🏭 Tiempo de Ciclo por Estación")
 
 tiempos = {
-    "Recepción": df["Recepción"].mean(),
-    "Inspección": df["Inspeción"].mean(),
-    "Ensamble": df["Ensamble"].mean(),
-    "Prueba": df["Prueba"].mean(),
-    "Calidad": df["Calidad"].mean(),
-    "Empaque": df["Empaque"].mean(),
-    "Almacén": df["Almacén"].mean()
+    "Recepción": recepcion,
+    "Inspección": inspeccion,
+    "Ensamble": ensamble,
+    "Prueba": prueba,
+    "Calidad": calidad,
+    "Empaque": empaque,
+    "Almacén": almacen
 }
+tiempo_max = max(tiempos.values())
+
+cuellos = [
+    estacion
+    for estacion, tiempo in tiempos.items()
+    if tiempo >= tiempo_max * 0.95
+]
 
 df_tiempos = pd.DataFrame({
     "Estación": list(tiempos.keys()),
@@ -336,31 +356,13 @@ st.plotly_chart(
 # CUELLOS DE BOTELLA
 # ==================================================
 
-st.subheader("🚦 Frecuencia de Cuellos de Botella")
+st.subheader("🚨 Cuello de Botella Detectado")
 
-cuellos = (
-    df["Cuello de botella"]
-    .value_counts()
-    .reset_index()
+st.warning(
+    f"La estación {cuello_estimado} presenta el mayor tiempo de ciclo "
+    f"({tiempo_cuello:.1f} min) y constituye la restricción principal "
+    f"del proceso en el escenario actual."
 )
-
-cuellos.columns = [
-    "Estación",
-    "Frecuencia"
-]
-
-fig_cuellos = px.bar(
-    cuellos,
-    x="Estación",
-    y="Frecuencia",
-    title="Frecuencia de Cuellos de Botella"
-)
-
-st.plotly_chart(
-    fig_cuellos,
-    use_container_width=True
-)
-
 # ==================================================
 # CONCLUSIONES
 # ==================================================
@@ -380,16 +382,39 @@ st.info(
       enfocar mejoras en el proceso.
     """
 )
+
 st.header("📌 Recomendaciones de Mejora")
 
-if "Prueba" in cuellos["Estación"].values:
+if cuello_estimado == "Ensamble":
 
     st.warning("""
-    La estación de Prueba presenta la mayor frecuencia
-    de cuellos de botella.
+    La estación de Ensamble es el cuello de botella actual.
+
+    Recomendaciones:
+    - Incrementar operadores de ensamble.
+    - Balancear la carga de trabajo.
+    - Automatizar tareas repetitivas.
+    - Reducir tiempos de preparación.
+    """)
+
+elif cuello_estimado == "Prueba":
+
+    st.warning("""
+    La estación de Prueba es el cuello de botella actual.
 
     Recomendaciones:
     - Incrementar capacidad de prueba.
     - Automatizar pruebas repetitivas.
-    - Redistribuir operadores.
+    - Reducir retrabajos.
+    """)
+
+elif cuello_estimado == "Inspección":
+
+    st.warning("""
+    La estación de Inspección es el cuello de botella actual.
+
+    Recomendaciones:
+    - Optimizar inspecciones.
+    - Aplicar muestreo estadístico.
+    - Incorporar visión artificial.
     """)
