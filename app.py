@@ -237,8 +237,6 @@ operadores = st.sidebar.number_input(
 # SIMULACIÓN
 # ==================================================
 
-st.subheader("⚙️ Simulación de Escenario")
-
 if st.button("Ejecutar Simulación"):
 
     entrada = pd.DataFrame(
@@ -281,25 +279,25 @@ if st.button("Ejecutar Simulación"):
     }
 
     cuello_estimado = max(
-    estaciones,
-    key=estaciones.get
-)
-
-tiempo_cuello = estaciones[cuello_estimado]
-
-c1, c2 = st.columns(2)
-
-with c1:
-    st.metric(
-        "⏱ Tiempo de ciclo estimado",
-        f"{tiempo_estimado:.2f} min"
+        estaciones,
+        key=estaciones.get
     )
 
-with c2:
-    st.metric(
-        "🚨 Cuello de botella",
-        f"{cuello_estimado} ({tiempo_cuello:.1f} min)"
-    )
+    tiempo_cuello = estaciones[cuello_estimado]
+
+    c1, c2 = st.columns(2)
+
+    with c1:
+        st.metric(
+            "⏱ Tiempo de ciclo estimado",
+            f"{tiempo_estimado:.2f} min"
+        )
+
+    with c2:
+        st.metric(
+            "🚨 Cuello de botella",
+            f"{cuello_estimado} ({tiempo_cuello:.1f} min)"
+        )
 
 # ==================================================
 # DATASET
