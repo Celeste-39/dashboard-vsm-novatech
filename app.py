@@ -342,8 +342,8 @@ df_tiempos = pd.DataFrame({
     "Tiempo": list(tiempos.values())
 })
 
-st.dataframe(df_tiempos)
-st.write("PRUEBA ACTUALIZADA")
+
+st.write(df_tiempos)
 fig_estaciones = px.bar(
     df_tiempos,
     x="Estación",
