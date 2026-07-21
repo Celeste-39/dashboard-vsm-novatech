@@ -356,11 +356,13 @@ st.plotly_chart(
 
 st.subheader("🚨 Cuello de Botella Detectado")
 
-st.warning(
-    f"La estación {cuello_estimado} presenta el mayor tiempo de ciclo "
-    f"({tiempo_cuello:.1f} min) y constituye la restricción principal "
-    f"del proceso en el escenario actual."
-)
+if "cuello_estimado" in locals():
+
+    st.warning(
+        f"La estación {cuello_estimado} presenta el mayor tiempo de ciclo "
+        f"({tiempo_cuello:.1f} min) y constituye la restricción principal "
+        f"del proceso en el escenario actual."
+    )
 # ==================================================
 # CONCLUSIONES
 # ==================================================
@@ -383,36 +385,38 @@ st.info(
 
 st.header("📌 Recomendaciones de Mejora")
 
-if cuello_estimado == "Ensamble":
+if "cuello_estimado" in locals():
 
-    st.warning("""
-    La estación de Ensamble es el cuello de botella actual.
+    if cuello_estimado == "Ensamble":
 
-    Recomendaciones:
-    - Incrementar operadores de ensamble.
-    - Balancear la carga de trabajo.
-    - Automatizar tareas repetitivas.
-    - Reducir tiempos de preparación.
-    """)
+        st.warning("""
+        La estación de Ensamble es el cuello de botella actual.
 
-elif cuello_estimado == "Prueba":
+        Recomendaciones:
+        - Incrementar operadores de ensamble.
+        - Balancear la carga de trabajo.
+        - Automatizar tareas repetitivas.
+        - Reducir tiempos de preparación.
+        """)
 
-    st.warning("""
-    La estación de Prueba es el cuello de botella actual.
+    elif cuello_estimado == "Prueba":
 
-    Recomendaciones:
-    - Incrementar capacidad de prueba.
-    - Automatizar pruebas repetitivas.
-    - Reducir retrabajos.
-    """)
+        st.warning("""
+        La estación de Prueba es el cuello de botella actual.
 
-elif cuello_estimado == "Inspección":
+        Recomendaciones:
+        - Incrementar capacidad de prueba.
+        - Automatizar pruebas repetitivas.
+        - Reducir retrabajos.
+        """)
 
-    st.warning("""
-    La estación de Inspección es el cuello de botella actual.
+    elif cuello_estimado == "Inspección":
 
-    Recomendaciones:
-    - Optimizar inspecciones.
-    - Aplicar muestreo estadístico.
-    - Incorporar visión artificial.
-    """)
+        st.warning("""
+        La estación de Inspección es el cuello de botella actual.
+
+        Recomendaciones:
+        - Optimizar inspecciones.
+        - Aplicar muestreo estadístico.
+        - Incorporar visión artificial.
+        """)
