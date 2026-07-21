@@ -233,6 +233,9 @@ operadores = st.sidebar.number_input(
     max_value=3,
     value=2
 )
+st.write("Ensamble:", ensamble)
+st.write("Inspección:", inspeccion)
+st.write("Operadores:", operadores)
 
 # ==================================================
 # SIMULACIÓN
@@ -339,11 +342,13 @@ df_tiempos = pd.DataFrame({
     "Tiempo": list(tiempos.values())
 })
 
+st.dataframe(df_tiempos)
+st.write("PRUEBA ACTUALIZADA")
 fig_estaciones = px.bar(
     df_tiempos,
     x="Estación",
     y="Tiempo",
-    title="Tiempo Promedio por Estación"
+   title="Tiempo por Estación del Escenario Simulado"
 )
 
 st.plotly_chart(
