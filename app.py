@@ -14,7 +14,7 @@ from sklearn.metrics import (
 # ==================================================
 
 st.set_page_config(
-    page_title="Línea de Ensamblaje y Empaque de Sensores Automotrices",
+    page_title="SimulIA - Sensores Automotrices",
     page_icon="🏭",
     layout="wide"
 )
@@ -41,9 +41,9 @@ clasificador, regresor = cargar_modelos()
 # TÍTULO
 # ==================================================
 
-st.title("📊 Línea de Ensamblaje y Empaque de Sensores Automotrices")
+st.title("📊 SimulIA")
 st.subheader(
-    "Simulación, Predicción y Detección de Cuellos de Botella en la Línea de Producción"
+    "Sistema Inteligente de Simulación y Predicción para la Línea de Ensamblaje y Empaque de Sensores Automotrices"
 )
 # ==================================================
 # VARIABLES DEL MODELO
