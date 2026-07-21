@@ -318,7 +318,7 @@ st.dataframe(
 # PRODUCCIÓN
 # ==================================================
 
-st.subheader("🏭 Tiempo de Ciclo por Estación")
+st.subheader("🟢 PRUEBA DE ACTUALIZACIÓN")
 
 tiempos = {
     "Recepción": recepcion,
@@ -348,7 +348,7 @@ fig_estaciones = px.bar(
     df_tiempos,
     x="Estación",
     y="Tiempo",
-   title="Tiempo por Estación del Escenario Simulado"
+    title="GRÁFICA ACTUALIZADA - PRUEBA"
 )
 
 st.plotly_chart(
