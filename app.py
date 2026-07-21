@@ -14,8 +14,8 @@ from sklearn.metrics import (
 # ==================================================
 
 st.set_page_config(
-    page_title="SimulIA - Novatech",
-    page_icon="📊",
+    page_title="Línea de Ensamblaje y Empaque de Sensores Automotrices",
+    page_icon="🏭",
     layout="wide"
 )
 
@@ -41,9 +41,10 @@ clasificador, regresor = cargar_modelos()
 # TÍTULO
 # ==================================================
 
-st.title("📊 SimulIA - Novatech")
-st.markdown("### Dashboard Inteligente de Simulación y Predicción")
-
+st.title("📊 Línea de Ensamblaje y Empaque de Sensores Automotrices")
+st.subheader(
+    "Simulación, Predicción y Detección de Cuellos de Botella en la Línea de Producción"
+)
 # ==================================================
 # VARIABLES DEL MODELO
 # ==================================================
@@ -376,8 +377,7 @@ st.info(
     • El error promedio es de {error_promedio:.2f} minutos.
 
     • El modelo puede utilizarse para evaluar escenarios
-      futuros de la línea de producción Novatech.
-
+  futuros de la línea de ensamblaje y empaque de sensores automotrices.
     • Los cuellos de botella identificados permiten
       enfocar mejoras en el proceso.
     """
