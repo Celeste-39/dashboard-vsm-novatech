@@ -227,13 +227,13 @@ almacen = st.sidebar.slider(
     1.5
 )
 
-operadores = st.sidebar.number_input(
-    "Operadores ensamble",
-    min_value=1,
-    stmax_value=3,
-    value=2
+operadores = int(
+    st.sidebar.selectbox(
+        "Operadores ensamble",
+        [1, 2, 3],
+        index=1
+    )
 )
-
 # ==================================================
 # SIMULACIÓN
 # ==================================================
