@@ -230,7 +230,7 @@ almacen = st.sidebar.slider(
 operadores = int(
     st.sidebar.selectbox(
         "Operadores ensamble",
-        [1, 2, 3],
+        [1, 2, 3, 4],
         index=1
     )
 )
