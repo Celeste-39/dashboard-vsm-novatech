@@ -422,11 +422,13 @@ if "cuello_estimado" in locals():
         - Aplicar muestreo estadístico.
         - Incorporar visión artificial.
         """)
-        st.subheader("📊 Escenario Simulado")
+        
 
-st.success(f"Tiempo estimado: {tiempo_estimado:.2f} min")
+if "tiempo_estimado" in locals():
 
-st.info(
-    f"Mejora respecto al escenario base: "
-    f"{((48 - tiempo_estimado)/48)*100:.2f}%"
-)
+    st.subheader("📊 Escenario Simulado")
+
+    st.info(
+        f"Mejora respecto al escenario base: "
+        f"{((48 - tiempo_estimado)/48)*100:.2f}%"
+    )
