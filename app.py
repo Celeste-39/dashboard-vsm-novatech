@@ -366,10 +366,37 @@ st.plotly_chart(
 )
 
 # ==================================================
+# OCUPACIÓN DE ESTACIONES
+# ==================================================
+
+st.subheader("📈 Ocupación de Estaciones")
+
+ocupacion = []
+
+for tiempo in tiempos.values():
+    ocupacion.append((tiempo / tiempo_max) * 100)
+
+df_ocupacion = pd.DataFrame({
+    "Estación": list(tiempos.keys()),
+    "Ocupación (%)": ocupacion
+})
+
+fig_ocupacion = px.bar(
+    df_ocupacion,
+    x="Estación",
+    y="Ocupación (%)",
+    text="Ocupación (%)",
+    title="Nivel de Ocupación por Estación"
+)
+
+st.plotly_chart(
+    fig_ocupacion,
+    use_container_width=True
+)
+# ==================================================
 # COMPARACIÓN DE ESCENARIOS
 # ==================================================
 
-st.write(st.session_state)
 
 if "tiempo_estimado" in st.session_state:
 
