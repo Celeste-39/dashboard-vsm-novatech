@@ -369,6 +369,8 @@ st.plotly_chart(
 # COMPARACIÓN DE ESCENARIOS
 # ==================================================
 
+st.write(st.session_state)
+
 if "tiempo_estimado" in st.session_state:
 
     tiempo_base = 48.0
