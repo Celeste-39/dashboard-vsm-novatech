@@ -240,6 +240,7 @@ operadores = int(
 
 if st.button("Ejecutar Simulación"):
 
+
     entrada = pd.DataFrame(
         [[
             llegada,
@@ -265,9 +266,7 @@ if st.button("Ejecutar Simulación"):
         ]
     )
 
-    tiempo_estimado = regresor.predict(
-        entrada
-    )[0]
+    tiempo_estimado = regresor.predict(entrada)[0]
 
     estaciones = {
         "Recepción": recepcion,
@@ -285,6 +284,19 @@ if st.button("Ejecutar Simulación"):
     )
 
     tiempo_cuello = estaciones[cuello_estimado]
+
+    # Guardar resultados
+    st.session_state["tiempo_estimado"] = tiempo_estimado
+    st.session_state["cuello_estimado"] = cuello_estimado
+    st.session_state["tiempo_cuello"] = tiempo_cuello
+
+# Mostrar resultados guardados
+
+if "tiempo_estimado" in st.session_state:
+
+    tiempo_estimado = st.session_state["tiempo_estimado"]
+    cuello_estimado = st.session_state["cuello_estimado"]
+    tiempo_cuello = st.session_state["tiempo_cuello"]
 
     c1, c2 = st.columns(2)
 
@@ -352,6 +364,43 @@ st.plotly_chart(
     fig_estaciones,
     use_container_width=True
 )
+
+# ==================================================
+# COMPARACIÓN DE ESCENARIOS
+# ==================================================
+
+if "tiempo_estimado" in st.session_state:
+
+    tiempo_base = 48.0
+
+    mejora = (
+        (tiempo_base - tiempo_estimado)
+        / tiempo_base
+    ) * 100
+
+    st.subheader("📊 Comparación de Escenarios")
+
+    df_comp = pd.DataFrame({
+        "Escenario": ["Base", "Simulado"],
+        "Tiempo": [tiempo_base, tiempo_estimado]
+    })
+
+    fig_comp = px.bar(
+        df_comp,
+        x="Escenario",
+        y="Tiempo",
+        text="Tiempo",
+        title="Comparación del Tiempo de Ciclo"
+    )
+
+    st.plotly_chart(
+        fig_comp,
+        use_container_width=True
+    )
+
+    st.success(
+        f"Mejora respecto al escenario base: {mejora:.2f}%"
+    )
 
 # ==================================================
 # CUELLOS DE BOTELLA
